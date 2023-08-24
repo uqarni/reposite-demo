@@ -11,7 +11,7 @@ urL: str = os.environ.get("SUPABASE_URL")
 key: str = os.environ.get("SUPABASE_KEY")
 
 supabase: Client = create_client(urL, key)
-data, count = supabase.table("bots").select("*").eq("id", "reposite_bot").execute()
+data, count = supabase.table("bots").select("*").eq("id", "ethan").execute()
 bot_info = data[1][0]
 
 # id
@@ -25,7 +25,7 @@ bot_info = data[1][0]
 def main():
 
     # Create a title for the chat interface
-    st.title("Trainual Bot (named Allison)")
+    st.title("Reposite Bot (named Ethan)")
     st.write("To test, first select some fields then click the button below.")
   
     #variables for system prompt
