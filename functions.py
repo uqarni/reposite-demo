@@ -51,7 +51,7 @@ def ideator(messages):
       
       return strings
 
-  split_response = split_sms(response)
+  split_response = [response]
   count = len(split_response)
   for section in split_response:
     section = {
