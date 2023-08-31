@@ -32,7 +32,7 @@ def main():
   
     #variables for system prompt
     bot_name = 'Taylor'
-    membership_link = 'trainualbooking.com'
+    membership_link = 'https://www.reposite.io/membership-overview-1'
 
     #variables about the lead
     email = st.text_input('email', value = 'john@doe.com')
