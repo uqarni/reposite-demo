@@ -104,7 +104,7 @@ def main():
     #st.write("Hi! This is Tara. Seems like you need help coming up with an idea! Let's do this. First, what's your job?")
 
     # Create a text input for the user to enter their message and append it to messages
-    userresponse = st.text_input("Enter your message")
+    userresponse = st.text_area("Enter your message")
     
 
     # Create a button to submit the user's message
