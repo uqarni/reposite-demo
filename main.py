@@ -32,7 +32,7 @@ def main():
   
     #variables for system prompt
     bot_name = 'Taylor'
-    booking_link = 'trainualbooking.com'
+    membership_link = 'trainualbooking.com'
 
     #variables about the lead
     email = st.text_input('email', value = 'john@doe.com')
@@ -57,7 +57,7 @@ def main():
     system_prompt = system_prompt.format(
         #bot info
         bot_name=bot_name, 
-        booking_link=booking_link, 
+        membeship_link=membership_link,
         #lead info
         email=email, 
         supplier_name=supplier_name, 
