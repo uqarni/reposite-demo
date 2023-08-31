@@ -20,28 +20,63 @@ bot_info = data[1][0]
 # max_followup_count
 # followup_time
 # followup_prompt
+now = datetime.now()
+now = now.strftime("%Y-%m-%d %H:%M:%S")
 
 
 def main():
 
     # Create a title for the chat interface
-    st.title("Reposite Bot (named Ethan)")
+    st.title("Reposite Bot (named Taylor)")
     st.write("To test, first select some fields then click the button below.")
   
     #variables for system prompt
-    name = 'Allison'
+    bot_name = 'Taylor'
     booking_link = 'trainualbooking.com'
-    
+
+    #variables about the lead
+    email = st.text_input('email', value = 'john@doe.com')
+    supplier_name = st.text_input('supplier name', value = 'Acme Trading Co')
     lead_first_name = st.text_input('Lead First Name', value = 'John')
-    custom_field1 = st.text_input('customization data field 2', value = 'unknown')
-    custom_field2 = st.text_input('customization data field 3', value = 'unknown')
+    lead_last_name = st.text_input('Lead Last Name', value = 'Doe')
+    nmqr_count = st.text_input('# NMQR received', value = '10')
+
+    #most recent nmqr info
+    reseller_org_name = st.text_input('reseller org name', value = 'Smith Co')
+    category = st.text_input('category', value = 'travel')
+    date = st.text_input('date', value = 'June 20, 2023')
+    current_date = now
+    destination = st.text_input('destination', value = 'Honolulu')
+    group_size = st.text_input('group size', value = '50')
+    trip_dates = st.text_input('trip dates', value = 'August 10, 2023 to August 20, 2023')
+    
+    
+    
 
     system_prompt = bot_info['system_prompt']
-    system_prompt = system_prompt.format(first_name = lead_first_name, custom_field1 = custom_field1, custom_field2 = custom_field2)
+    system_prompt = system_prompt.format(
+        #bot info
+        bot_name=bot_name, 
+        booking_link=booking_link, 
+        #lead info
+        email=email, 
+        supplier_name=supplier_name, 
+        lead_first_name=lead_first_name, 
+        lead_last_name=lead_last_name, 
+        nmqr_count=nmqr_count, 
+        #most recent nmqr info
+        reseller_org_name=reseller_org_name, 
+        category=category, 
+        date=date, 
+        current_date=current_date, 
+        destination=destination, 
+        group_size=date,  # Note: You used 'date' for both 'date' and 'group size'
+        trip_dates=trip_dates,
+    )
 
     
     initial_text = bot_info['initial_text']
-    initial_text = initial_text.format(first_name = lead_first_name)
+    initial_text = initial_text.format(bot_name = bot_name, nmqr_count = nmqr_count, lead_first_name = lead_first_name, reseller_org_name = reseller_org_name, supplier_name = supplier_name)
     
     if st.button('Click to Start or Restart'):
         st.write(initial_text)
