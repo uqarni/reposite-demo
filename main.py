@@ -57,7 +57,7 @@ def main():
     system_prompt = system_prompt.format(
         #bot info
         bot_name=bot_name, 
-        membeship_link=membership_link,
+        membership_link=membership_link,
         #lead info
         email=email, 
         supplier_name=supplier_name, 
