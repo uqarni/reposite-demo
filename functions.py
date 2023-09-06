@@ -10,15 +10,22 @@ import random
 
 #generate openai response; returns messages with openai response
 def ideator(messages):
-
-  key = os.environ.get("OPENAI_API_KEY")
-  openai.api_key = key
-
-  result = openai.ChatCompletion.create(
-    model="gpt-4",
-    messages= messages
-  )
-  response = result["choices"][0]["message"]["content"]
+  for i in range(5):
+    try:
+      key = os.environ.get("OPENAI_API_KEY")
+      openai.api_key = key
+    
+      result = openai.ChatCompletion.create(
+        model="gpt-4",
+        messages= messages
+      )
+      response = result["choices"][0]["message"]["content"]
+      break
+    except: 
+      error_message = f"Attempt {i + 1} failed: {e}"
+      print(error_message)
+      if i < 4:  # we don't want to wait after the last try
+      time.sleep(5)  # wait for 5 seconds before the next attempt
   
   def split_sms(message):
       import re
