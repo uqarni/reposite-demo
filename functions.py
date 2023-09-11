@@ -130,7 +130,7 @@ Taylor
         'NTM $500 Membership - Quote Hotlist':'''
 Hey {FirstName} -
 
-I noticed that your conversation (with {Quote_Lead_Company_Name} is off to a good start - congrats (though I don't want to jinx it)!
+I noticed that your conversation with {Quote_Lead_Company_Name} is off to a good start - congrats (though I don't want to jinx it)!
 
 Are you open to receiving more quotes and group leads from other planners?
 
