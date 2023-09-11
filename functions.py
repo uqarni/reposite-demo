@@ -21,7 +21,7 @@ def ideator(messages):
         )
         response = result["choices"][0]["message"]["content"]
         break
-      except: 
+      except Exception as e: 
         error_message = f"Attempt {i + 1} failed: {e}"
         print(error_message)
         if i < 4:  # we don't want to wait after the last try
@@ -71,4 +71,82 @@ def ideator(messages):
 
 
 
+def initial_text_info(selection=None):
+    dictionary = {
+        'NTM $500 Membership - Received NMQR | First': '''
+        Hey {FirstName} -
 
+I noticed that you recently received your very first quote request from a planner {Quote_Lead_Company_Name} on Reposite - congrats!
+
+Are you the right person at {Supplier_Organization_Name} that handles group reservations?
+
+Cheers,
+Taylor
+''',
+
+        'NTM $500 Membership - Received NMQR | Subsequent':'''
+        Hey {FirstName} -
+
+I saw you got another group reservation request through Reposite from {Quote_Lead_Company_Name}!
+
+Are you the right person at {Supplier_Organization_Name} that handles group reservations?
+
+Cheers,
+Taylor
+''',
+
+        'NTM $500 Membership - Newly Onboarded': '''
+        Hey {FirstName} -
+
+I saw you just set up an account for {Supplier_Organization_Name} on Reposite! Congrats on being invited by {Quote_Lead_Company_Name}.
+
+So we can help tailor future leads for you: what's your ideal type of group business (corporate, student groups, international groups, luxury, etc.)?
+
+Cheers,
+Taylor
+''',
+
+        'NTM $500 Membership - New QR':'''
+        Hey {FirstName} -
+
+I saw that your Reposite profile just sparked some new interest! A planner {Quote_Lead_Company_Name}, just sent you a new quote request - they're looking for {Category} suppliers in {Quote_Lead_Destination}.
+
+Based on the details, do you feel like this lead is relevant for {Supplier_Organization_Name}?
+
+Cheers,
+Taylor
+''',
+
+        'NTM $500 Membership - Token Change':'''
+Hey {FirstName} -
+
+I saw that you just used tokens to discover new group planners. It's great to see you taking active steps to expand your connections!
+
+Are there certain types of planners that you're targeting (corporate, student groups, international groups, luxury, etc.)?
+
+Cheers,
+Taylor
+''',
+        'NTM $500 Membership - Quote Hotlist':'''
+Hey {FirstName} -
+
+I noticed that your conversation (with {Quote_Lead_Company_Name} is off to a good start - congrats (though I don't want to jinx it)!
+
+Are you open to receiving more quotes and group leads from other planners?
+
+Cheers,
+Taylor
+''',
+        'NTM $500 Membership - Booking Received': '''
+Hey {FirstName} -
+
+Congrats on your recent booking with {Quote_Lead_Company_Name}! Was everything up to your expectations?
+
+Best,
+Taylor
+'''
+    }
+    if selection is None:
+      return list(dictionary.keys())
+    
+    return dictionary[selection]

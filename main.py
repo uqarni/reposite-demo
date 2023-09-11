@@ -1,5 +1,5 @@
 import streamlit as st
-from functions import ideator
+from functions import ideator, initial_text_info
 import json
 import os
 import sys
@@ -22,6 +22,7 @@ bot_info = data[1][0]
 # followup_prompt
 now = datetime.now()
 now = now.strftime("%Y-%m-%d %H:%M:%S")
+
 
 
 def main():
@@ -75,9 +76,13 @@ def main():
     )
 
     
-    initial_text = bot_info['initial_text']
-    initial_text = initial_text.format(bot_name = bot_name, nmqr_count = nmqr_count, lead_first_name = lead_first_name, reseller_org_name = reseller_org_name, supplier_name = supplier_name)
-    
+    #initial_text = bot_info['initial_text']
+    #initial_text = initial_text.format(bot_name = bot_name, nmqr_count = nmqr_count, lead_first_name = lead_first_name, reseller_org_name = reseller_org_name, supplier_name = supplier_name)
+    options = initial_text_info()
+    initial_text_choice  = st.selectbox("Select initial email template", options)
+    initial_text = initial_text_info(initial_text_choice)
+    initial_text = initial_text.format(FirstName = lead_first_name, Quote_Lead_Company_Name = reseller_org_name, Supplier_Organization_Name = supplier_name, Category = category, Quote_Lead_Destination = destination)
+    #need to push this then make sure it works
     if st.button('Click to Start or Restart'):
         st.write(initial_text)
         restart_time = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
