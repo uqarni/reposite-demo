@@ -16,7 +16,7 @@ def ideator(messages):
         openai.api_key = key
     
         result = openai.ChatCompletion.create(
-          model="gpt-3.5-turbo-16k",
+          model="gpt-4",
           messages= messages
         )
         response = result["choices"][0]["message"]["content"]
