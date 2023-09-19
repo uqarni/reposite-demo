@@ -61,7 +61,7 @@ def main():
     if st.button('Click to Start or Restart'):
         initial_text = initial_text_info(initial_text_choice)
         if initial_text_choice == options[0] or initial_text_choice == options[1]:
-            data, count = supabase.table("bots").select("*").eq("id", "taylorNMQR").execute()
+            data, count = supabase.table("bots").select("*").eq("id", "TaylorNMQR").execute()
         else:
             data, count = supabase.table("bots").select("*").eq("id", "taylor").execute()
         bot_info = data[1][0]
