@@ -9,10 +9,8 @@ from supabase import create_client, Client
 #connect to supabase database
 urL: str = os.environ.get("SUPABASE_URL")
 key: str = os.environ.get("SUPABASE_KEY")
-
 supabase: Client = create_client(urL, key)
-data, count = supabase.table("bots").select("*").eq("id", "taylor").execute()
-bot_info = data[1][0]
+
 
 # id
 # org_id
@@ -41,7 +39,7 @@ def main():
     lead_first_name = st.text_input('Lead First Name', value = 'John')
     lead_last_name = st.text_input('Lead Last Name', value = 'Doe')
     nmqr_count = st.text_input('# NMQR received', value = '10')
-
+    nmqrurl = 'nmqrurl.com'
     #most recent nmqr info
     reseller_org_name = st.text_input('reseller org name', value = 'Smith Co')
     category = st.text_input('category', value = 'travel')
@@ -51,8 +49,14 @@ def main():
     group_size = st.text_input('group size', value = '50')
     trip_dates = st.text_input('trip dates', value = 'August 10, 2023 to August 20, 2023')
     
-    
-    
+    options = initial_text_info()
+    initial_text_choice  = st.selectbox("Select initial email template", options)
+    initial_text = initial_text_info(initial_text_choice)
+    if initial_text_choice == options[0] or initial_text_choice == options[1]:
+        data, count = supabase.table("bots").select("*").eq("id", "taylorNMQR").execute()
+    else:
+        data, count = supabase.table("bots").select("*").eq("id", "taylor").execute()
+    bot_info = data[1][0]
 
     system_prompt = bot_info['system_prompt']
     system_prompt = system_prompt.format(
@@ -73,14 +77,13 @@ def main():
         destination=destination, 
         group_size=date,  # Note: You used 'date' for both 'date' and 'group size'
         trip_dates=trip_dates,
+        nmqrurl = nmqrurl
     )
 
     
     #initial_text = bot_info['initial_text']
     #initial_text = initial_text.format(bot_name = bot_name, nmqr_count = nmqr_count, lead_first_name = lead_first_name, reseller_org_name = reseller_org_name, supplier_name = supplier_name)
-    options = initial_text_info()
-    initial_text_choice  = st.selectbox("Select initial email template", options)
-    initial_text = initial_text_info(initial_text_choice)
+    
     initial_text = initial_text.format(FirstName = lead_first_name, Quote_Lead_Company_Name = reseller_org_name, Supplier_Organization_Name = supplier_name, Category = category, Quote_Lead_Destination = destination)
     #need to push this then make sure it works
     if st.button('Click to Start or Restart'):
