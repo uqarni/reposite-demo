@@ -51,42 +51,44 @@ def main():
     
     options = initial_text_info()
     initial_text_choice  = st.selectbox("Select initial email template", options)
-    initial_text = initial_text_info(initial_text_choice)
-    if initial_text_choice == options[0] or initial_text_choice == options[1]:
-        data, count = supabase.table("bots").select("*").eq("id", "taylorNMQR").execute()
-    else:
-        data, count = supabase.table("bots").select("*").eq("id", "taylor").execute()
-    bot_info = data[1][0]
-
-    system_prompt = bot_info['system_prompt']
-    system_prompt = system_prompt.format(
-        #bot info
-        bot_name=bot_name, 
-        membership_link=membership_link,
-        #lead info
-        email=email, 
-        supplier_name=supplier_name, 
-        lead_first_name=lead_first_name, 
-        lead_last_name=lead_last_name, 
-        nmqr_count=nmqr_count, 
-        #most recent nmqr info
-        reseller_org_name=reseller_org_name, 
-        category=category, 
-        date=date, 
-        current_date=current_date, 
-        destination=destination, 
-        group_size=date,  # Note: You used 'date' for both 'date' and 'group size'
-        trip_dates=trip_dates,
-        nmqrurl = nmqrurl
-    )
+    
 
     
     #initial_text = bot_info['initial_text']
     #initial_text = initial_text.format(bot_name = bot_name, nmqr_count = nmqr_count, lead_first_name = lead_first_name, reseller_org_name = reseller_org_name, supplier_name = supplier_name)
     
-    initial_text = initial_text.format(FirstName = lead_first_name, Quote_Lead_Company_Name = reseller_org_name, Supplier_Organization_Name = supplier_name, Category = category, Quote_Lead_Destination = destination)
     #need to push this then make sure it works
     if st.button('Click to Start or Restart'):
+        initial_text = initial_text_info(initial_text_choice)
+        if initial_text_choice == options[0] or initial_text_choice == options[1]:
+            data, count = supabase.table("bots").select("*").eq("id", "taylorNMQR").execute()
+        else:
+            data, count = supabase.table("bots").select("*").eq("id", "taylor").execute()
+        bot_info = data[1][0]
+        initial_text = initial_text.format(FirstName = lead_first_name, Quote_Lead_Company_Name = reseller_org_name, Supplier_Organization_Name = supplier_name, Category = category, Quote_Lead_Destination = destination)
+        
+    
+        system_prompt = bot_info['system_prompt']
+        system_prompt = system_prompt.format(
+            #bot info
+            bot_name=bot_name, 
+            membership_link=membership_link,
+            #lead info
+            email=email, 
+            supplier_name=supplier_name, 
+            lead_first_name=lead_first_name, 
+            lead_last_name=lead_last_name, 
+            nmqr_count=nmqr_count, 
+            #most recent nmqr info
+            reseller_org_name=reseller_org_name, 
+            category=category, 
+            date=date, 
+            current_date=current_date, 
+            destination=destination, 
+            group_size=date,  # Note: You used 'date' for both 'date' and 'group size'
+            trip_dates=trip_dates,
+            nmqrurl = nmqrurl
+        )
         st.write(initial_text)
         restart_time = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
         with open('database.jsonl', 'r') as db, open('archive.jsonl','a') as arch:
