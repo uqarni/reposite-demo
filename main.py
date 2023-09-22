@@ -85,7 +85,7 @@ def main():
             date=date, 
             current_date=current_date, 
             destination=destination, 
-            group_size=date,  # Note: You used 'date' for both 'date' and 'group size'
+            group_size=group_size,  # Note: You used 'date' for both 'date' and 'group size'
             trip_dates=trip_dates,
             nmqrurl = nmqrurl
         )
